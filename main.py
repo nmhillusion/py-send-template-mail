@@ -1,13 +1,15 @@
 import json
 
 import pandas as pd
+import yaml
 from pandas import DataFrame
+from yaml import SafeLoader
 
 from mail_engine import MailTemplateBuilder, MailTemplateModel, MailModel, send_mail
 
 
-def parse_data_file_to_send_items():
-    data_: DataFrame = pd.read_excel("./data.xlsx", sheet_name=0, header=0, converters={"agent_code": str})
+def parse_data_file_to_send_items(data_path: str):
+    data_: DataFrame = pd.read_excel(data_path, sheet_name=0, header=0, converters={"agent_code": str})
 
     json_str = data_.to_json()
     if json_str is None:
@@ -30,15 +32,21 @@ def parse_data_file_to_send_items():
     return result_
 
 
-def read_mail_template():
-    return MailTemplateModel.from_file("./mail_template.yml")
+def read_mail_template(template_path: str):
+    return MailTemplateModel.from_file(template_path)
+
+
+def read_setting():
+    with open("./settings.yml", encoding='utf-8') as f_:
+        return yaml.load(f_, Loader=SafeLoader)
 
 
 def run():
-    mail_template_: MailTemplateModel = read_mail_template()
+    settings = read_setting()
+    mail_template_: MailTemplateModel = read_mail_template(settings["path"]["template"])
     mail_builder_ = MailTemplateBuilder(mail_template_)
 
-    send_items_ = parse_data_file_to_send_items()
+    send_items_ = parse_data_file_to_send_items(settings["path"]["data"])
 
     result_ = {"success": 0, "failure": []}
     for si_ in send_items_:
