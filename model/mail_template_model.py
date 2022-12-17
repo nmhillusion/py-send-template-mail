@@ -1,4 +1,6 @@
-from model.mail_model import MailModel
+__all__ = ["MailTemplateModel"]
+
+from model import MailModel
 
 
 class MailTemplateModel(MailModel):

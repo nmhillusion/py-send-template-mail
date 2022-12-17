@@ -5,9 +5,9 @@ import yaml
 from pandas import DataFrame
 from yaml import SafeLoader
 
-from engine.mail_builder import MailTemplateBuilder
-from engine.mail_sender import MailSender
-from model.mail_template_model import MailTemplateModel
+from engine import MailSender
+from engine import MailTemplateBuilder
+from model import MailTemplateModel
 
 
 def parse_data_file_to_send_items(data_path: str):
@@ -41,6 +41,11 @@ def read_mail_template(template_path: str):
 def read_setting():
     with open("./settings.yml", encoding='utf-8') as f_:
         return yaml.load(f_, Loader=SafeLoader)
+
+
+######################################################
+# MAIN PROGRAM #######################################
+######################################################
 
 
 def run():

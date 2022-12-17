@@ -1,5 +1,7 @@
-from model.mail_model import MailModel
-from model.mail_template_model import MailTemplateModel
+__all__ = ["MailTemplateBuilder"]
+
+from model import MailModel
+from model import MailTemplateModel
 
 
 class MailTemplateBuilder:

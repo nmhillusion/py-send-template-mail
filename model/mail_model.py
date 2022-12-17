@@ -1,3 +1,5 @@
+__all__ = ["MailModel"]
+
 import yaml
 from yaml import SafeLoader
 

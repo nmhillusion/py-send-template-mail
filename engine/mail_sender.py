@@ -1,6 +1,8 @@
+__all__ = ["MailSender"]
+
 import win32com.client as win32client
 
-from model.mail_model import MailModel
+from model import MailModel
 
 
 class MailSender:
