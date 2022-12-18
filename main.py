@@ -1,12 +1,12 @@
 import json
+import logging
 
 import pandas as pd
 import yaml
 from pandas import DataFrame
 from yaml import SafeLoader
 
-from engine import MailSender
-from engine import MailTemplateBuilder
+from engine import MailTemplateBuilder, MailSender
 from model import MailTemplateModel
 
 
@@ -15,7 +15,7 @@ def parse_data_file_to_send_items(data_path: str):
 
     json_str = data_.to_json()
     if json_str is None:
-        raise Exception("Cannot read data from excel file")
+        raise ValueError("Cannot read data from excel file")
 
     json_data_ = json.loads(json_str)
     data_length_ = len(data_)
@@ -62,14 +62,14 @@ def run():
 
             result_["success"] += 1
         except Exception as ex:
-            print(f"ERROR: {ex}")
+            logging.info(f"ERROR: {ex}")
             result_["failure"].append(ex)
 
-    print(f"==== Running results ===========")
-    print(f"\tSuccess: {result_['success']}")
-    print(f"\tFailure: {len(result_['failure'])}")
+    logging.info(f"==== Running results ===========")
+    logging.info(f"\tSuccess: {result_['success']}")
+    logging.info(f"\tFailure: {len(result_['failure'])}")
     if 0 < len(result_["failure"]):
-        print(f"Details of failure: ")
+        logging.info(f"Details of failure: ")
 
         for ex_ in result_["failure"]:
-            print(f"Exception: {ex_}")
+            logging.error(f"Exception: {ex_}", exc_info=True)

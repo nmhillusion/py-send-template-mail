@@ -1,5 +1,7 @@
 __all__ = ["MailSender"]
 
+import logging
+
 import win32com.client as win32client
 
 from model import MailModel
@@ -28,7 +30,7 @@ class MailSender:
         self.__do_send_mail__(to_emails=to_emails_, cc_emails=cc_emails_, bcc_emails=bcc_emails_, attachments=attachments_)
 
     def __do_send_mail__(self, to_emails: str, cc_emails: str, bcc_emails: str, attachments: str | None):
-        print(f"will do sending mail to... {to_emails}")
+        logging.info(f"will do sending mail to... {to_emails}")
         outlook = win32client.Dispatch("outlook.application")
 
         mail = outlook.CreateItem(0)
@@ -46,9 +48,9 @@ class MailSender:
             attachments_ = attachments.split(",")
             for att_ in attachments_:
                 if att_ is not None:
-                    print(f"attachment: {att_}")
+                    logging.info(f"attachment: {att_}")
                     mail.Attachments.Add(att_.strip())
 
-        print(f" will send: {mail}")
+        logging.info(f" will send: {mail}")
         mail.Send()
-        print(f"completed sending mail to... {to_emails}")
+        logging.info(f"completed sending mail to... {to_emails}")
