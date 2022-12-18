@@ -62,7 +62,7 @@ def run():
 
             result_["success"] += 1
         except Exception as ex:
-            logging.info(f"ERROR: {ex}")
+            logging.error(f"ERROR: {ex}", exc_info=True)
             result_["failure"].append(ex)
 
     logging.info(f"==== Running results ===========")
