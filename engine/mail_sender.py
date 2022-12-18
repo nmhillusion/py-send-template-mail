@@ -1,6 +1,7 @@
 __all__ = ["MailSender"]
 
 import logging
+from os.path import exists
 
 import win32com.client as win32client
 
@@ -49,6 +50,11 @@ class MailSender:
             for att_ in attachments_:
                 if att_ is not None:
                     logging.info(f"attachment: {att_}")
+
+                    att_ = att_.strip()
+                    if not exists(att_):
+                        raise ValueError(f"Attachment file does not existed of to_mails: {to_emails} - path: {att_}")
+
                     mail.Attachments.Add(att_.strip())
 
         logging.info(f" will send: {mail}")
