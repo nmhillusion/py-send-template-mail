@@ -19,7 +19,7 @@ jobs:
       # You can test your matrix by printing the current Python version
       - name: Test Job
         run: |
-          python -c "import sys; print(f\"using python version: {sys.version}\")"
+          python --version
           
           python -m pip install --upgrade pip
           pip install -r requirements.txt
