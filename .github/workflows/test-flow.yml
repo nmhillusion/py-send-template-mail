@@ -5,7 +5,7 @@ on: [ push ]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -22,6 +22,6 @@ jobs:
           python -c "import sys; print(f\"using python version: {sys.version}\")"
           
           python -m pip install --upgrade pip
-          pip install PyYAML
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           
           python -m unittest test
