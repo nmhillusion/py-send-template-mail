@@ -18,6 +18,6 @@ jobs:
           architecture: 'x64'
       # You can test your matrix by printing the current Python version
       - name: Display Python version
-        run:
-          - python -c "import sys; print('using python version ', sys.version)"
-          - python -m unittest test
+        run: |
+          python -c "import sys; print(f\"using python version: {sys.version}\")"
+          python -m unittest test
