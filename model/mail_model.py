@@ -10,9 +10,12 @@ class MailModel:
         self.mail_subject = mail_subject
 
     @classmethod
-    def from_file(cls, file_name_: str):
-        with open(file_name_, encoding='utf8') as f_:
+    def from_file(cls, file_name_: str, encoding_: str = 'utf8'):
+        with open(file_name_, encoding='utf-8') as f_:
             content = yaml.load(f_, Loader=SafeLoader)
-            mail_content_path_ = content["mail_content_path"]
-            with open(mail_content_path_, encoding="utf-8") as mail_content_f_:
+            mail_content_template_path_ = content["mail_content"]["template-path"]
+            mail_content_encoding_ = content["mail_content"]["encoding"]
+            with open(mail_content_template_path_,
+                      encoding=mail_content_encoding_ if not None else "utf-8"
+                      ) as mail_content_f_:
                 return MailModel(mail_subject=content["mail_subject"], mail_content=mail_content_f_.read())

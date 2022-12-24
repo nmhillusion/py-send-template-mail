@@ -1,3 +1,5 @@
 mail_subject: "Thông báo thu hồi laptop của #{full_name} - #{agent_code}"
 
-mail_content_path: config/mail_content_template.html
+mail_content:
+  template-path: config/mail_content_template.html
+  encoding: utf-8

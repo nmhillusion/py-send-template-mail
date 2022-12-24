@@ -58,5 +58,6 @@ class MailSender:
                     mail.Attachments.Add(att_.strip())
 
         logging.info(f" will send: {mail}")
-        mail.Send()
+        # mail.Send()
+        mail.Display(True)
         logging.info(f"completed sending mail to... {to_emails}")
