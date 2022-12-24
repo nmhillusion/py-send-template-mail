@@ -1,6 +1,3 @@
 mail_subject: "Thông báo thu hồi laptop của #{full_name} - #{agent_code}"
 
-mail_content: "
-                Dear anh/chị #{full_name}, Mã ĐDKD: #{agent_code},<br>
-                Ngày thu hồi laptop công ty của anh/chị là <b>#{leave_date}</b>
-              "
+mail_content_path: config/mail_content_template.html

@@ -13,4 +13,6 @@ class MailModel:
     def from_file(cls, file_name_: str):
         with open(file_name_, encoding='utf8') as f_:
             content = yaml.load(f_, Loader=SafeLoader)
-            return MailModel(mail_subject=content["mail_subject"], mail_content=content["mail_content"])
+            mail_content_path_ = content["mail_content_path"]
+            with open(mail_content_path_, encoding="utf-8") as mail_content_f_:
+                return MailModel(mail_subject=content["mail_subject"], mail_content=mail_content_f_.read())
