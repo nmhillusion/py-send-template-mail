@@ -41,4 +41,4 @@ class MainWindow(QMainWindow, IMainStage):
 
         enable_action_ = data_file_name_ is not None
         self.btn_load_data_.setEnabled(enable_action_)
-        self.btn_load_data_.setEnabled(enable_action_)
+        self.btn_send_all_.setEnabled(enable_action_)

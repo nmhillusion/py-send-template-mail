@@ -14,9 +14,12 @@ class MailSender:
         self.send_item = send_item
 
     def preview_mail(self):
-        return self.send_mail(only_preview=True)
+        return self.exec_mailing(only_preview=True)
 
-    def send_mail(self, only_preview: bool = True):
+    def send_mail(self):
+        return self.exec_mailing(only_preview=False)
+
+    def exec_mailing(self, only_preview: bool):
         si_ = self.send_item
 
         for column_name_ in ["to_emails", "cc_emails", "bcc_emails", "attachments"]:
@@ -65,9 +68,10 @@ class MailSender:
         logging_emitter.info(f" started {action_name_}ing: {mail}")
 
         if only_preview:
+            logging_emitter.info("Previewing...")
             mail.Display(True)
         else:
-            mail.Display(False)
+            logging_emitter.info("Sending...")
             mail.Send()
 
         logging_emitter.info(f"completed {action_name_}ing mail to... {to_emails}")
