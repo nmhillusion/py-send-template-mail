@@ -3,7 +3,7 @@ import sys
 
 from PyQt6.QtWidgets import QApplication
 
-from gui.main_stage import MainWindow
+from gui.stage.main_stage import MainWindow
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, encoding='utf-8', format='%(asctime)s - %(filename)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')

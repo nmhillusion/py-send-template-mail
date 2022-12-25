@@ -1,6 +1,6 @@
 from data_parser import read_setting, read_mail_template, parse_data_file_to_send_items
 from engine import MailTemplateBuilder, MailSender
-from gui import logging_emitter
+from gui.component import logging_emitter
 from model import MailTemplateModel
 
 
