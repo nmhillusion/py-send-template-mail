@@ -61,9 +61,6 @@ class MainStageController:
 
         self.main_window_.dataList.setHorizontalHeaderLabels(headers_)
 
-        # self.main_window_.dataList.setItem(0, 0, QTableWidgetItem("a"))
-        # self.main_window_.dataList.setItem(0, 1, QTableWidgetItem("1 a"))
-
         for row_idx_, si_ in enumerate(send_items_):
             for col_idx_ in range(len(headers_) - 1):
                 self.main_window_.dataList.setItem(row_idx_, col_idx_, QTableWidgetItem(si_[headers_[col_idx_]]))

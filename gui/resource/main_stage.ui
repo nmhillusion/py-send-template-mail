@@ -6,18 +6,27 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>642</width>
-    <height>736</height>
+    <width>1000</width>
+    <height>740</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+    <horstretch>1</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>CatRunner :: Send Mail With Template</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="btnLoadData">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>810</x>
       <y>80</y>
       <width>75</width>
       <height>31</height>
@@ -35,7 +44,7 @@
      <rect>
       <x>40</x>
       <y>20</y>
-      <width>481</width>
+      <width>811</width>
       <height>31</height>
      </rect>
     </property>
@@ -45,11 +54,17 @@
     <property name="acceptRichText">
      <bool>false</bool>
     </property>
+    <property name="placeholderText">
+     <string>path to excel data file...</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="btnSendAll">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>540</x>
+      <x>910</x>
       <y>80</y>
       <width>75</width>
       <height>31</height>
@@ -67,17 +82,38 @@
      <rect>
       <x>0</x>
       <y>140</y>
-      <width>641</width>
+      <width>1000</width>
       <height>311</height>
      </rect>
     </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>1</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <attribute name="horizontalHeaderCascadingSectionResizes">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="horizontalHeaderStretchLastSection">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="verticalHeaderStretchLastSection">
+     <bool>false</bool>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btnBrowse">
     <property name="geometry">
      <rect>
-      <x>540</x>
+      <x>864</x>
       <y>20</y>
-      <width>75</width>
+      <width>121</width>
       <height>31</height>
      </rect>
     </property>
@@ -89,9 +125,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>481</y>
-      <width>651</width>
-      <height>211</height>
+      <y>480</y>
+      <width>1000</width>
+      <height>225</height>
      </rect>
     </property>
    </widget>
@@ -127,7 +163,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>642</width>
+     <width>1000</width>
      <height>21</height>
     </rect>
    </property>
