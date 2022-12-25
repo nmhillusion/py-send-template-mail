@@ -1,18 +1,6 @@
 @echo off
 
-echo.
-echo Preparing environment...
-echo.
+powershell Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+powershell -File ./start_program.ps1
 
-pip install -r requirements.txt
-
-echo.
-echo :: CatRunner :: Send Template Mail ::
-echo.
-
-pause
-
-python .
-
-echo.
 pause
