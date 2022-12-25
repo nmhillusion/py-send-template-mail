@@ -71,7 +71,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: green; font-weight: 900;</string>
+     <string notr="true">color: green;</string>
     </property>
     <property name="text">
      <string>Send All</string>

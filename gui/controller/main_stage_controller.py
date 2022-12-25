@@ -1,7 +1,7 @@
 import traceback
 from functools import partial
 
-from PyQt6.QtWidgets import QFileDialog, QTableWidgetItem, QPushButton
+from PyQt6.QtWidgets import QFileDialog, QTableWidgetItem, QPushButton, QDialogButtonBox, QMessageBox
 
 from gui.component import logging_emitter
 from gui.stage import IMainStage
@@ -20,6 +20,18 @@ class MainStageController:
         return data_file_name_
 
     def send_all(self, data_file_name_: str):
+        msg_box_ = QMessageBox()
+        msg_box_.setIcon(QMessageBox.Icon.Information)
+        msg_box_.setWindowTitle("Confirm")
+        msg_box_.setText("Confirm to send all items?")
+        msg_box_.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
+
+        return_value_ = msg_box_.exec()
+
+        if QMessageBox.StandardButton.Ok != return_value_:
+            logging_emitter.warning("cancelled to send all items request!")
+            return
+
         logging_emitter.info("send all mails")
         if (data_file_name_ is None):
             logging_emitter.error("data file is empty")
@@ -66,6 +78,7 @@ class MainStageController:
                 self.main_window_.dataList.setItem(row_idx_, col_idx_, QTableWidgetItem(si_[headers_[col_idx_]]))
 
             btn_preview_ = QPushButton("Preview")
+            btn_preview_.setFixedSize(50, 25)
             btn_preview_.pressed.connect(partial(self.preview_send_item, si_))
             self.main_window_.dataList.setCellWidget(row_idx_, len(headers_) - 1, btn_preview_)
 
