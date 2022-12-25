@@ -60,6 +60,7 @@ def __do_logging__(message_: str, level_: LoggingLevel):
     logging_message_item_ = __build_logging_message_list_item__(logging_message_, level_)
 
     logging.info(logging_message_)
+
     if __widget is not None:
         __widget.addItem(logging_message_item_)
 
