@@ -1,15 +1,23 @@
-from data_parser import read_setting, read_mail_template, parse_data_file_to_send_items
 from engine import MailTemplateBuilder, MailSender
 from gui.component import logging_emitter
 from model import MailTemplateModel
+from service.data_parser import read_setting, read_mail_template, parse_data_file_to_send_items
 
 
 ######################################################
 # MAIN PROGRAM #######################################
 ######################################################
 
+def preview_send_item(si_: dict[str, str]):
+    logging_emitter.info("previewing send item: " + str(si_))
+    settings = read_setting()
+    mail_template_: MailTemplateModel = read_mail_template(settings["path"]["template"])
+    mail_builder_ = MailTemplateBuilder(mail_template_)
 
-def run(data_excel_path_: str):
+    MailSender(mail_model=mail_builder_.build(si_), send_item=si_).preview_mail()
+
+
+def send_all_items(data_excel_path_: str):
     settings = read_setting()
     mail_template_: MailTemplateModel = read_mail_template(settings["path"]["template"])
     mail_builder_ = MailTemplateBuilder(mail_template_)

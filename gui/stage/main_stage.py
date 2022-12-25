@@ -24,10 +24,10 @@ class MainWindow(QMainWindow, IMainStage):
         self.btn_browse.pressed.connect(self.open_chose_data_file_dialog)
 
         btn_load_data_: QPushButton = ui_.btnLoadData
-        btn_load_data_.pressed.connect(self.load_data)
+        btn_load_data_.pressed.connect(lambda: self.main_stage_controller_.load_data(self.data_file_name_))
 
         btn_send_all_: QPushButton = ui_.btnSendAll
-        btn_send_all_.pressed.connect(self.main_stage_controller_.send_all)
+        btn_send_all_.pressed.connect(lambda: self.main_stage_controller_.send_all(self.data_file_name_))
 
         self.dataList: QTableWidget = ui_.dataList
         self.size()
@@ -36,6 +36,3 @@ class MainWindow(QMainWindow, IMainStage):
         data_file_name_ = self.main_stage_controller_.open_chose_data_file_dialog()
         self.data_file_name_ = data_file_name_
         self.inp_data_file_path_.setPlainText(data_file_name_)
-
-    def load_data(self):
-        self.main_stage_controller_.load_data(self.data_file_name_)

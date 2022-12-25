@@ -1,4 +1,5 @@
 import json
+from os import path
 
 import pandas as pd
 import yaml
@@ -37,5 +38,5 @@ def read_mail_template(template_path: str):
 
 
 def read_setting():
-    with open("../settings.yml", encoding='utf-8') as f_:
+    with open(path.dirname(__file__) + "/../settings.yml", encoding='utf-8') as f_:
         return yaml.load(f_, Loader=SafeLoader)

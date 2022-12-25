@@ -1,10 +1,10 @@
 __all__ = ["MailSender"]
 
-import logging
 from os.path import exists
 
 import win32com.client as win32client
 
+from gui.component import logging_emitter
 from model import MailModel
 
 
@@ -13,7 +13,10 @@ class MailSender:
         self.mail_model = mail_model
         self.send_item = send_item
 
-    def send_mail(self):
+    def preview_mail(self):
+        return self.send_mail(only_preview=True)
+
+    def send_mail(self, only_preview: bool = True):
         si_ = self.send_item
 
         for column_name_ in ["to_emails", "cc_emails", "bcc_emails", "attachments"]:
@@ -28,10 +31,12 @@ class MailSender:
         if to_emails_ is None:
             raise ValueError("Cannot execute on None to_emails")
 
-        self.__do_send_mail__(to_emails=to_emails_, cc_emails=cc_emails_, bcc_emails=bcc_emails_, attachments=attachments_)
+        self.__do_send_mail__(to_emails=to_emails_, cc_emails=cc_emails_, bcc_emails=bcc_emails_, attachments=attachments_, only_preview=only_preview)
 
-    def __do_send_mail__(self, to_emails: str, cc_emails: str, bcc_emails: str, attachments: str | None):
-        logging.info(f"will do sending mail to... {to_emails}")
+    def __do_send_mail__(self, to_emails: str, cc_emails: str, bcc_emails: str, attachments: str | None, only_preview: bool = True):
+        action_name_ = "preview" if only_preview else "send"
+
+        logging_emitter.info(f"will {action_name_} mail to... {to_emails}")
         outlook = win32client.Dispatch("outlook.application")
 
         mail = outlook.CreateItem(0)
@@ -49,7 +54,7 @@ class MailSender:
             attachments_ = attachments.split(",")
             for att_ in attachments_:
                 if att_ is not None:
-                    logging.info(f"attachment: {att_}")
+                    logging_emitter.info(f"attachment: {att_}")
 
                     att_ = att_.strip()
                     if not exists(att_):
@@ -57,7 +62,12 @@ class MailSender:
 
                     mail.Attachments.Add(att_.strip())
 
-        logging.info(f" will send: {mail}")
-        # mail.Send()
-        mail.Display(True)
-        logging.info(f"completed sending mail to... {to_emails}")
+        logging_emitter.info(f" started {action_name_}ing: {mail}")
+
+        if only_preview:
+            mail.Display(True)
+        else:
+            mail.Display(False)
+            mail.Send()
+
+        logging_emitter.info(f"completed {action_name_}ing mail to... {to_emails}")
