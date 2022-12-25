@@ -1,16 +1,18 @@
-import logging
-import sys
+from os import path
 
 from PyQt6 import uic
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QTextEdit, QTableWidget, QTableWidgetItem, QFileDialog
+from PyQt6.QtWidgets import QMainWindow, QPushButton, QTextEdit, QTableWidget, QTableWidgetItem, QFileDialog
+
+from gui import logging_emitter
 
 
-class OMainWindow(QMainWindow):
+class MainWindow(QMainWindow):
     def __init__(self):
-        super(OMainWindow, self).__init__()
+        super(MainWindow, self).__init__()
 
         self.data_file_name_: str | None = None
-        ui_ = uic.loadUi("resource/main_stage.ui", self)
+        ui_ = uic.loadUi(path.dirname(__file__) + "/resource/main_stage.ui", self)
+        logging_emitter.apply_widget(ui_.logList)
 
         self.inp_data_file_path_: QTextEdit = ui_.inpDataFilePath
         self.btn_browse: QPushButton = ui_.btnBrowse
@@ -28,19 +30,19 @@ class OMainWindow(QMainWindow):
     def open_chose_data_file_dialog(self):
         data_file_name_, _ = QFileDialog.getOpenFileName(self, 'Open file',
                                                          '/', "Excel file (*.xls *.xlsx)")
-        print("will load data from path: ", data_file_name_)
+        logging_emitter.info(f"will load data from path: {data_file_name_}")
         self.data_file_name_ = data_file_name_
         self.inp_data_file_path_.setPlainText(data_file_name_)
 
     def send_all(self):
-        print("send all mails")
+        logging_emitter.info("send all mails")
 
     def load_data(self):
         if (self.data_file_name_ is None):
-            logging.warning("data file is empty")
+            logging_emitter.warning("data file is empty")
             return
 
-        print("chosen data file from ", self.data_file_name_)
+        logging_emitter.info(f"chosen data file from {self.data_file_name_}")
 
         self.dataList.setRowCount(3)
         self.dataList.setColumnCount(2)
@@ -53,9 +55,3 @@ class OMainWindow(QMainWindow):
 
         self.dataList.setItem(2, 0, QTableWidgetItem("c"))
         self.dataList.setItem(2, 1, QTableWidgetItem("3 c"))
-
-
-app = QApplication(sys.argv)
-main_window_ = OMainWindow()
-main_window_.show()
-sys.exit(app.exec())

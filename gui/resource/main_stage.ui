@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
-    <height>480</height>
+    <width>642</width>
+    <height>736</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -66,7 +66,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>130</y>
+      <y>140</y>
       <width>641</width>
       <height>311</height>
      </rect>
@@ -85,13 +85,49 @@
      <string>Browse</string>
     </property>
    </widget>
+   <widget class="QListWidget" name="logList">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>481</y>
+      <width>651</width>
+      <height>211</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>460</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Log:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>120</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Data List:</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>640</width>
+     <width>642</width>
      <height>21</height>
     </rect>
    </property>
