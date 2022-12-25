@@ -5,8 +5,6 @@ import yaml
 from pandas import DataFrame
 from yaml import SafeLoader
 
-from engine import MailTemplateBuilder, MailSender
-from gui import logging_emitter
 from model import MailTemplateModel
 
 
@@ -41,4 +39,3 @@ def read_mail_template(template_path: str):
 def read_setting():
     with open("../settings.yml", encoding='utf-8') as f_:
         return yaml.load(f_, Loader=SafeLoader)
-

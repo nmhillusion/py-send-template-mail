@@ -9,12 +9,12 @@ from model import MailTemplateModel
 ######################################################
 
 
-def run():
+def run(data_excel_path_: str):
     settings = read_setting()
     mail_template_: MailTemplateModel = read_mail_template(settings["path"]["template"])
     mail_builder_ = MailTemplateBuilder(mail_template_)
 
-    send_items_ = parse_data_file_to_send_items(settings["path"]["data"])
+    send_items_ = parse_data_file_to_send_items(data_excel_path_ if not None else settings["path"]["data"])
 
     result_ = {"success": 0, "failure": []}
     for si_ in send_items_:
