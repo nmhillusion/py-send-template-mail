@@ -1,2 +1,2 @@
-from gui.stage.IMainStage import *
-from gui.stage.main_stage import *
+from .IMainStage import *
+from .main_stage import *

@@ -9,6 +9,7 @@ from PyQt6.QtWidgets import QMainWindow, QPushButton, QTextEdit, QTableWidget
 from gui.component import logging_emitter
 from gui.controller import MainStageController
 from gui.stage import IMainStage
+from util import StringUtil
 
 
 class MainWindow(QMainWindow, IMainStage):
@@ -39,6 +40,6 @@ class MainWindow(QMainWindow, IMainStage):
         self.data_file_name_ = data_file_name_
         self.inp_data_file_path_.setPlainText(data_file_name_)
 
-        enable_action_ = data_file_name_ is not None
+        enable_action_ = not StringUtil.is_blank(data_file_name_)
         self.btn_load_data_.setEnabled(enable_action_)
         self.btn_send_all_.setEnabled(enable_action_)

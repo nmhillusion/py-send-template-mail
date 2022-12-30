@@ -1,22 +1,36 @@
 import traceback
 from functools import partial
+from os import path
 
-from PyQt6.QtWidgets import QFileDialog, QTableWidgetItem, QPushButton, QDialogButtonBox, QMessageBox
+from PyQt6.QtWidgets import QFileDialog, QTableWidgetItem, QPushButton, QMessageBox
 
 from gui.component import logging_emitter
 from gui.stage import IMainStage
+from gui.state import StateService
 from service import parse_data_file_to_send_items
 from service.main_runner import preview_send_item, send_all_items
+from util import StringUtil
 
 
 class MainStageController:
+    __KEY__file_data_path = "data.excel.start_path"
+
     def __init__(self, main_window_: IMainStage):
         self.main_window_ = main_window_
+        self.state_service_ = StateService()
 
     def open_chose_data_file_dialog(self):
+        state_ = self.state_service_.load_state()
         data_file_name_, _ = QFileDialog.getOpenFileName(self.main_window_, 'Open file',
-                                                         '/', "Excel file (*.xls *.xlsx)")
+                                                         state_[self.__KEY__file_data_path], "Excel file (*.xls *.xlsx)")
         logging_emitter.info(f"chosen data file path: {data_file_name_}")
+
+        if not StringUtil.is_blank(data_file_name_):
+            m_dir_ = path.dirname(data_file_name_)
+            self.state_service_.save_state({
+                self.__KEY__file_data_path: m_dir_
+            })
+
         return data_file_name_
 
     def send_all(self, data_file_name_: str):
@@ -56,7 +70,7 @@ class MainStageController:
         return headers_
 
     def load_data(self, data_file_name_: str):
-        if (data_file_name_ is None):
+        if StringUtil.is_blank(data_file_name_):
             logging_emitter.error("data file is empty")
             return
 

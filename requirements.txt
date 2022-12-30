@@ -1,6 +1,4 @@
-outcome==1.2.0
 pandas==1.5.2
-pycparser==2.21
 PyQt6==6.4.0
 pywin32==305
 PyYAML==6.0
