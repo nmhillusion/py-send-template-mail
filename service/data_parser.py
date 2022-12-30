@@ -1,5 +1,6 @@
 import json
 from os import path
+from typing import Callable
 
 import pandas as pd
 import yaml
@@ -9,8 +10,8 @@ from yaml import SafeLoader
 from model import MailTemplateModel
 
 
-def parse_data_file_to_send_items(data_path: str):
-    data_: DataFrame = pd.read_excel(data_path, sheet_name=0, header=0, converters={"agent_code": str})
+def parse_data_file_to_send_items(data_path: str, converters_: dict[str, Callable]):
+    data_: DataFrame = pd.read_excel(data_path, sheet_name=0, header=0, converters=converters_)
 
     json_str = data_.to_json()
     if json_str is None:

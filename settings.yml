@@ -1,3 +1,8 @@
 path:
   template: config/mail_template.yml
   data: config/data.xlsx
+
+converters:
+  str:
+    - agent_code
+    - staff_id

@@ -1,15 +1,17 @@
 import traceback
 from functools import partial
 from os import path
+from typing import Callable
 
 from PyQt6.QtWidgets import QFileDialog, QTableWidgetItem, QPushButton, QMessageBox
 
 from gui.component import logging_emitter
 from gui.stage import IMainStage
 from gui.state import StateService
-from service import parse_data_file_to_send_items
+from service import parse_data_file_to_send_items, read_setting
 from service.main_runner import preview_send_item, send_all_items
 from util import StringUtil
+from util.mapping_util import mapping_config_to_func
 
 
 class MainStageController:
@@ -18,6 +20,12 @@ class MainStageController:
     def __init__(self, main_window_: IMainStage):
         self.main_window_ = main_window_
         self.state_service_ = StateService()
+        self.settings_ = read_setting()
+
+        self.__load_converters()
+
+    def __load_converters(self):
+        self.converters_: dict[str, Callable] = mapping_config_to_func(self.settings_["converters"])
 
     def open_chose_data_file_dialog(self):
         state_ = self.state_service_.load_state()
@@ -51,7 +59,7 @@ class MainStageController:
             logging_emitter.error("data file is empty")
             return
         try:
-            send_all_items(data_excel_path_=self.main_window_.data_file_name_)
+            send_all_items(data_excel_path_=self.main_window_.data_file_name_, converters_=self.converters_)
         except Exception as ex:
             traceback.print_exc()
             logging_emitter.error(str(ex))
@@ -76,7 +84,7 @@ class MainStageController:
 
         logging_emitter.info(f"chosen data file from {data_file_name_}")
 
-        send_items_: list[dict[str, str]] = parse_data_file_to_send_items(data_file_name_)
+        send_items_: list[dict[str, str]] = parse_data_file_to_send_items(data_file_name_, converters_=self.converters_)
         headers_: list[str] = self.__get_headers_of_send_items(send_items_)
 
         self.main_window_.dataList.setAlternatingRowColors(True)

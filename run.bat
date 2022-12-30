@@ -1,0 +1,15 @@
+echo.
+echo Preparing environment...
+echo.
+
+pip install -r requirements.txt
+
+echo.
+echo ":: CatRunner :: Send Template Mail ::"
+echo.
+
+pause
+
+python .
+
+echo.
