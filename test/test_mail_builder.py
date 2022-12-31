@@ -16,7 +16,9 @@ class TestMailTemplateBuilder(TestCase):
                     Dear #{name},
                     Welcome to the forum.
                     Your bill is $#{cost}.
-                """
+                """,
+                is_template=False,
+                mail_template_path=""
             )
         )
 

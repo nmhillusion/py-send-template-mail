@@ -4,6 +4,7 @@ from os.path import exists
 
 import win32com.client as win32client
 
+from engine.mail_builder import build_template_with_variables
 from gui.component import logging_emitter
 from model import MailModel
 
@@ -42,7 +43,11 @@ class MailSender:
         logging_emitter.info(f"will {action_name_} mail to... {to_emails}")
         outlook = win32client.Dispatch("outlook.application")
 
-        mail = outlook.CreateItem(0)
+        if self.mail_model.is_template:
+            mail = outlook.CreateItemFromTemplate(self.mail_model.mail_template_path)
+        else:
+            mail = outlook.CreateItem(0)
+
         mail.Subject = self.mail_model.mail_subject
         mail.To = to_emails
 
@@ -51,7 +56,10 @@ class MailSender:
         if bcc_emails is not None:
             mail.BCC = bcc_emails
 
-        mail.HTMLBody = self.mail_model.mail_content
+        if self.mail_model.is_template:
+            mail.HTMLBody = build_template_with_variables(mail.HTMLBody, self.send_item)
+        else:
+            mail.HTMLBody = self.mail_model.mail_content
 
         if attachments is not None and 0 < len(attachments.strip()):
             attachments_ = attachments.split(",")
