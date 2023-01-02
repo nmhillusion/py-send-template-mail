@@ -48,7 +48,10 @@ class MailSender:
         else:
             mail = outlook.CreateItem(0)
 
-        mail.Subject = self.mail_model.mail_subject
+        mail.Subject = build_template_with_variables(mail.Subject) \
+            if self.mail_model.is_template and mail.Subject is not None \
+            else self.mail_model.mail_subject
+
         mail.To = to_emails
 
         if cc_emails is not None:
