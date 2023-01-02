@@ -66,7 +66,7 @@ class MainStageController:
             logging_emitter.error(str(ex))
 
     def __get_headers_of_send_items(self, send_items_: list[dict[str, str]]) -> list[str]:
-        headers_: list[str] = []
+        headers_: list[str] = ["Action"]
 
         if send_items_ is not None:
             if 0 < len(send_items_):
@@ -74,7 +74,6 @@ class MainStageController:
                 keys_ = first_item_.keys()
                 for k_ in keys_:
                     headers_.append(k_)
-        headers_.append("Action")
 
         return headers_
 
@@ -94,17 +93,27 @@ class MainStageController:
         self.main_window_.dataList.setWordWrap(True)
         self.main_window_.dataList.setColumnCount(len(headers_))
         self.main_window_.dataList.setRowCount(len(send_items_))
-
         self.main_window_.dataList.setHorizontalHeaderLabels(headers_)
 
         for row_idx_, si_ in enumerate(send_items_):
-            for col_idx_ in range(len(headers_) - 1):
-                self.main_window_.dataList.setItem(row_idx_, col_idx_, QTableWidgetItem(si_[headers_[col_idx_]]))
+            try:
+                self.main_window_.dataList.setCellWidget(row_idx_, 0, self.__build_preview_button(si_))
 
-            __btn_preview_ = QPushButton("Preview")
-            __btn_preview_.setFixedSize(50, 25)
-            __btn_preview_.pressed.connect(partial(self.preview_send_item, si_))
-            self.main_window_.dataList.setCellWidget(row_idx_, len(headers_) - 1, __btn_preview_)
+                for col_idx_ in range(1, len(headers_)):
+                    self.main_window_.dataList.setItem(row_idx_, col_idx_, QTableWidgetItem(si_[headers_[col_idx_]]))
+
+            except Exception as ex:
+                traceback.print_exc()
+                logging_emitter.error(str(ex))
+
+        self.main_window_.dataList.resizeColumnsToContents()
+        self.main_window_.dataList.resizeRowsToContents()
+
+    def __build_preview_button(self, si_: dict[str, str]):
+        btn_preview_ = QPushButton("Preview")
+        btn_preview_.setFixedSize(50, 25)
+        btn_preview_.pressed.connect(partial(self.preview_send_item, si_))
+        return btn_preview_
 
     def preview_send_item(self, si_: dict[str, str]):
         try:

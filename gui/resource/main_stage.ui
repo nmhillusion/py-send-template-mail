@@ -57,6 +57,9 @@
     <property name="placeholderText">
      <string>path to excel data file...</string>
     </property>
+    <property name="styleSheet">
+     <string>border: solid 1px green; background-color: #ddd;</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="btnSendAll">
     <property name="enabled">
