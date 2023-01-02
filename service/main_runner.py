@@ -10,18 +10,18 @@ from service.data_parser import read_setting, read_mail_template, parse_data_fil
 # MAIN PROGRAM #######################################
 ######################################################
 
-def preview_send_item(si_: dict[str, str]):
+def preview_send_item(template_file_path_: str, si_: dict[str, str]):
     logging_emitter.info("previewing send item: " + str(si_))
     settings = read_setting()
-    mail_template_: MailTemplateModel = read_mail_template(settings["path"]["template"])
+    mail_template_: MailTemplateModel = read_mail_template(settings["path"]["template"], template_file_path_)
     mail_builder_ = MailTemplateBuilder(mail_template_)
 
     MailSender(mail_model=mail_builder_.build(si_), send_item=si_).preview_mail()
 
 
-def send_all_items(data_excel_path_: str, converters_: dict[str, Callable]):
+def send_all_items(template_file_path_: str, data_excel_path_: str, converters_: dict[str, Callable]):
     settings = read_setting()
-    mail_template_: MailTemplateModel = read_mail_template(settings["path"]["template"])
+    mail_template_: MailTemplateModel = read_mail_template(settings["path"]["template"], template_file_path_)
     mail_builder_ = MailTemplateBuilder(mail_template_)
 
     send_items_ = parse_data_file_to_send_items(data_excel_path_ if not None else settings["path"]["data"], converters_)

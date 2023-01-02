@@ -75,8 +75,13 @@ class MainStageController:
         if (data_file_name_ is None):
             logging_emitter.error("data file is empty")
             return
+
         try:
-            send_all_items(data_excel_path_=self.main_window_.data_file_name_, converters_=self.converters_)
+            if StringUtil.is_blank(self.main_window_.template_file_name_):
+                raise IOError("template_file_name_ is None")
+            send_all_items(template_file_path_=self.main_window_.template_file_name_,
+                           data_excel_path_=self.main_window_.data_file_name_,
+                           converters_=self.converters_)
         except Exception as ex:
             traceback.print_exc()
             logging_emitter.error(str(ex))
@@ -133,7 +138,11 @@ class MainStageController:
 
     def preview_send_item(self, si_: dict[str, str]):
         try:
-            preview_send_item(si_)
+            if StringUtil.is_blank(self.main_window_.template_file_name_):
+                raise IOError("template_file_name_ is None")
+
+            preview_send_item(template_file_path_=self.main_window_.template_file_name_,
+                              si_=si_)
         except Exception as ex:
             traceback.print_exc()
             logging_emitter.error(str(ex))

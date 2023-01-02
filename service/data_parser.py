@@ -34,8 +34,8 @@ def parse_data_file_to_send_items(data_path: str, converters_: dict[str, Callabl
     return result_
 
 
-def read_mail_template(template_path: str):
-    return MailTemplateModel.from_file(template_path)
+def read_mail_template(template_config_path_: str, template_file_path_: str):
+    return MailTemplateModel.from_file(template_config_path_, template_file_path_)
 
 
 def read_setting():

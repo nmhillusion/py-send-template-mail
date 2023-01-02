@@ -3,6 +3,8 @@ __all__ = ["MailModel"]
 import yaml
 from yaml import SafeLoader
 
+from util import StringUtil
+
 
 class MailModel:
     def __init__(self, mail_subject: str, is_template: bool, mail_template_path: str, mail_content: str):
@@ -12,11 +14,13 @@ class MailModel:
         self.mail_content = mail_content
 
     @classmethod
-    def from_file(cls, file_name_: str):
-        with open(file_name_, encoding='utf-8') as f_:
+    def from_file(cls, template_config_path_: str, template_file_path_: str):
+        with open(template_config_path_, encoding='utf-8') as f_:
             content = yaml.load(f_, Loader=SafeLoader)
             is_template_: bool = content["is_template"]
-            mail_content_template_path_ = content["mail_content"]["template-path"]
+            mail_content_template_path_ = template_file_path_ \
+                if not StringUtil.is_blank(template_file_path_) \
+                else content["mail_content"]["template-path"]
             mail_content_encoding_ = content["mail_content"]["encoding"]
             mail_template_content_ = ""
 
