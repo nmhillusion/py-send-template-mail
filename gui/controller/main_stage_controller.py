@@ -28,9 +28,10 @@ class MainStageController:
         self.converters_: dict[str, Callable] = mapping_config_to_func(self.settings_["converters"])
 
     def open_chose_data_file_dialog(self):
-        state_ = self.state_service_.load_state()
-        data_file_name_, _ = QFileDialog.getOpenFileName(self.main_window_, 'Open file',
-                                                         state_[self.__KEY__file_data_path], "Excel file (*.xls *.xlsx)")
+        data_file_name_, _ = QFileDialog.getOpenFileName(self.main_window_,
+                                                         'Open file',
+                                                         self.state_service_.get_state(self.__KEY__file_data_path),
+                                                         "Excel file (*.xls *.xlsx)")
         logging_emitter.info(f"chosen data file path: {data_file_name_}")
 
         if not StringUtil.is_blank(data_file_name_):
@@ -99,10 +100,10 @@ class MainStageController:
             for col_idx_ in range(len(headers_) - 1):
                 self.main_window_.dataList.setItem(row_idx_, col_idx_, QTableWidgetItem(si_[headers_[col_idx_]]))
 
-            btn_preview_ = QPushButton("Preview")
-            btn_preview_.setFixedSize(50, 25)
-            btn_preview_.pressed.connect(partial(self.preview_send_item, si_))
-            self.main_window_.dataList.setCellWidget(row_idx_, len(headers_) - 1, btn_preview_)
+            __btn_preview_ = QPushButton("Preview")
+            __btn_preview_.setFixedSize(50, 25)
+            __btn_preview_.pressed.connect(partial(self.preview_send_item, si_))
+            self.main_window_.dataList.setCellWidget(row_idx_, len(headers_) - 1, __btn_preview_)
 
     def preview_send_item(self, si_: dict[str, str]):
         try:
