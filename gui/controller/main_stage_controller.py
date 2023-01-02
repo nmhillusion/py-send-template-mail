@@ -88,6 +88,7 @@ class MainStageController:
         send_items_: list[dict[str, str]] = parse_data_file_to_send_items(data_file_name_, converters_=self.converters_)
         headers_: list[str] = self.__get_headers_of_send_items(send_items_)
 
+        self.main_window_.dataList.clear()
         self.main_window_.dataList.setAlternatingRowColors(True)
         self.main_window_.dataList.colorCount()
         self.main_window_.dataList.setWordWrap(True)
