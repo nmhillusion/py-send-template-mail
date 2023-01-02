@@ -1,3 +1,5 @@
+@echo off
+
 echo.
 echo Preparing environment...
 echo.
@@ -8,8 +10,4 @@ echo.
 echo ":: CatRunner :: Send Template Mail ::"
 echo.
 
-pause
-
 python .
-
-echo.
