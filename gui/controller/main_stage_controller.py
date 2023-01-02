@@ -16,6 +16,7 @@ from util.mapping_util import mapping_config_to_func
 
 class MainStageController:
     __KEY__file_data_path = "data.excel.start_path"
+    __KEY__file_template_path = "data.template.start_path"
 
     def __init__(self, main_window_: IMainStage):
         self.main_window_ = main_window_
@@ -27,20 +28,35 @@ class MainStageController:
     def __load_converters(self):
         self.converters_: dict[str, Callable] = mapping_config_to_func(self.settings_["converters"])
 
-    def open_chose_data_file_dialog(self):
-        data_file_name_, _ = QFileDialog.getOpenFileName(self.main_window_,
-                                                         'Open file',
-                                                         self.state_service_.get_state(self.__KEY__file_data_path),
-                                                         "Excel file (*.xls *.xlsx)")
-        logging_emitter.info(f"chosen data file path: {data_file_name_}")
+    def open_choose_data_file_dialog(self):
+        chosen_file_name_, _ = QFileDialog.getOpenFileName(self.main_window_,
+                                                           "Open data file",
+                                                           self.state_service_.get_state(self.__KEY__file_data_path),
+                                                           "Excel file (*.xls *.xlsx)")
+        logging_emitter.info(f"chosen data file path: {chosen_file_name_}")
 
-        if not StringUtil.is_blank(data_file_name_):
-            m_dir_ = path.dirname(data_file_name_)
+        if not StringUtil.is_blank(chosen_file_name_):
+            m_dir_ = path.dirname(chosen_file_name_)
             self.state_service_.save_state({
                 self.__KEY__file_data_path: m_dir_
             })
 
-        return data_file_name_
+        return chosen_file_name_
+
+    def open_choose_template_file_dialog(self):
+        chosen_file_name_, _ = QFileDialog.getOpenFileName(self.main_window_,
+                                                           "Open template file",
+                                                           self.state_service_.get_state(self.__KEY__file_template_path),
+                                                           "Template mail file (*.oft *.msg);;HTML file (*.html)")
+        logging_emitter.info(f"chosen template file path: {chosen_file_name_}")
+
+        if not StringUtil.is_blank(chosen_file_name_):
+            m_dir_ = path.dirname(chosen_file_name_)
+            self.state_service_.save_state({
+                self.__KEY__file_template_path: m_dir_
+            })
+
+        return chosen_file_name_
 
     def send_all(self, data_file_name_: str):
         msg_box_ = QMessageBox()

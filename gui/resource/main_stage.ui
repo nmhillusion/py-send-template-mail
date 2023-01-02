@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1000</width>
-    <height>740</height>
+    <height>783</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -26,10 +26,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>810</x>
-      <y>80</y>
-      <width>75</width>
-      <height>31</height>
+      <x>620</x>
+      <y>160</y>
+      <width>140</width>
+      <height>32</height>
      </rect>
     </property>
     <property name="text">
@@ -43,10 +43,22 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>20</y>
-      <width>811</width>
-      <height>31</height>
+      <y>40</y>
+      <width>810</width>
+      <height>30</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string>border: solid 1px green; background-color: #ddd;</string>
     </property>
     <property name="readOnly">
      <bool>true</bool>
@@ -54,11 +66,11 @@
     <property name="acceptRichText">
      <bool>false</bool>
     </property>
+    <property name="cursorWidth">
+     <number>0</number>
+    </property>
     <property name="placeholderText">
      <string>path to excel data file...</string>
-    </property>
-    <property name="styleSheet">
-     <string>border: solid 1px green; background-color: #ddd;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnSendAll">
@@ -67,9 +79,9 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>910</x>
-      <y>80</y>
-      <width>75</width>
+      <x>834</x>
+      <y>160</y>
+      <width>151</width>
       <height>31</height>
      </rect>
     </property>
@@ -84,7 +96,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>140</y>
+      <y>200</y>
       <width>1000</width>
       <height>311</height>
      </rect>
@@ -111,13 +123,13 @@
      <bool>false</bool>
     </attribute>
    </widget>
-   <widget class="QPushButton" name="btnBrowse">
+   <widget class="QPushButton" name="btnBrowseData">
     <property name="geometry">
      <rect>
       <x>864</x>
-      <y>20</y>
-      <width>121</width>
-      <height>31</height>
+      <y>40</y>
+      <width>120</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="text">
@@ -128,7 +140,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>480</y>
+      <y>540</y>
       <width>1000</width>
       <height>225</height>
      </rect>
@@ -138,7 +150,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>460</y>
+      <y>520</y>
       <width>47</width>
       <height>13</height>
      </rect>
@@ -151,13 +163,80 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>120</y>
+      <y>180</y>
       <width>47</width>
       <height>13</height>
      </rect>
     </property>
     <property name="text">
      <string>Data List:</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="inpTemplateFilePath">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>100</y>
+      <width>810</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="cursorWidth">
+     <number>0</number>
+    </property>
+    <property name="styleSheet">
+     <string>border: solid 1px green; background-color: #ddd;</string>
+    </property>
+    <property name="placeholderText">
+     <string>path to template mail file...</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnBrowseTemplate">
+    <property name="geometry">
+     <rect>
+      <x>864</x>
+      <y>100</y>
+      <width>120</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Browse</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>10</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Excel File Path:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>75</y>
+      <width>151</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Template Mail File Path:</string>
     </property>
    </widget>
   </widget>
