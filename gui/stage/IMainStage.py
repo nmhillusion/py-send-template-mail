@@ -16,3 +16,6 @@ class IMainStage(QWidget):
     btn_send_all_: QPushButton
 
     dataList: QTableWidget
+
+    def re_enable_action_buttons(self):
+        pass

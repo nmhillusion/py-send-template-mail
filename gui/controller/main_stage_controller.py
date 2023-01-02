@@ -15,46 +15,59 @@ from util.mapping_util import mapping_config_to_func
 
 
 class MainStageController:
-    __KEY__file_data_path = "data.excel.start_path"
-    __KEY__file_template_path = "data.template.start_path"
+    __KEY__prev_data_file_path = "prev.data.file.path"
+    __KEY__prev_template_file_path = "prev.template.file.path"
 
     def __init__(self, main_window_: IMainStage):
         self.main_window_ = main_window_
         self.state_service_ = StateService()
         self.settings_ = read_setting()
-
         self.__load_converters()
+
+    def load_previous_state(self):
+        pre_data_file_path_ = self.state_service_.get_state(self.__KEY__prev_data_file_path)
+        pre_template_file_path_ = self.state_service_.get_state(self.__KEY__prev_template_file_path)
+
+        self.main_window_.data_file_name_ = pre_data_file_path_
+        self.main_window_.template_file_name_ = pre_template_file_path_
+
+        self.main_window_.re_enable_action_buttons()
+
+    def save_state(self):
+        state_ = {
+            self.__KEY__prev_data_file_path: self.main_window_.data_file_name_,
+            self.__KEY__prev_template_file_path: self.main_window_.template_file_name_
+        }
+
+        for key_ in state_:
+            if not StringUtil.is_blank(state_[key_]):
+                self.state_service_.save_state({
+                    key_: state_[key_]
+                })
 
     def __load_converters(self):
         self.converters_: dict[str, Callable] = mapping_config_to_func(self.settings_["converters"])
 
     def open_choose_data_file_dialog(self):
-        chosen_file_name_, _ = QFileDialog.getOpenFileName(self.main_window_,
-                                                           "Open data file",
-                                                           self.state_service_.get_state(self.__KEY__file_data_path),
-                                                           "Excel file (*.xls *.xlsx)")
-        logging_emitter.info(f"chosen data file path: {chosen_file_name_}")
+        prev_file_path_ = self.state_service_.get_state(self.__KEY__prev_data_file_path)
+        start_path_ = path.dirname(prev_file_path_) if prev_file_path_ is not None else ""
 
-        if not StringUtil.is_blank(chosen_file_name_):
-            m_dir_ = path.dirname(chosen_file_name_)
-            self.state_service_.save_state({
-                self.__KEY__file_data_path: m_dir_
-            })
+        chosen_file_name_, _ = QFileDialog.getOpenFileName(self.main_window_
+                                                           , "Open data file"
+                                                           , start_path_
+                                                           , "Excel file (*.xls *.xlsx)")
+        logging_emitter.info(f"chosen data file path: {chosen_file_name_}")
 
         return chosen_file_name_
 
     def open_choose_template_file_dialog(self):
-        chosen_file_name_, _ = QFileDialog.getOpenFileName(self.main_window_,
-                                                           "Open template file",
-                                                           self.state_service_.get_state(self.__KEY__file_template_path),
-                                                           "Template mail file (*.oft *.msg);;HTML file (*.html)")
+        prev_file_path_ = self.state_service_.get_state(self.__KEY__prev_template_file_path)
+        start_path_ = path.dirname(prev_file_path_) if prev_file_path_ is not None else ""
+        chosen_file_name_, _ = QFileDialog.getOpenFileName(self.main_window_
+                                                           , "Open template file"
+                                                           , start_path_
+                                                           , "Template mail file (*.oft *.msg);;HTML file (*.html)")
         logging_emitter.info(f"chosen template file path: {chosen_file_name_}")
-
-        if not StringUtil.is_blank(chosen_file_name_):
-            m_dir_ = path.dirname(chosen_file_name_)
-            self.state_service_.save_state({
-                self.__KEY__file_template_path: m_dir_
-            })
 
         return chosen_file_name_
 
