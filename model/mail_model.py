@@ -20,7 +20,7 @@ class MailModel:
             mail_content_encoding_ = content["mail_content"]["encoding"]
             mail_template_content_ = ""
 
-            if is_template_:
+            if not is_template_:
                 with open(mail_content_template_path_,
                           encoding=mail_content_encoding_ if not None else "utf-8"
                           ) as mail_content_f_:
