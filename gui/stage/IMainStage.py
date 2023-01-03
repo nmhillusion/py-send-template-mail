@@ -7,9 +7,11 @@ class IMainStage(QWidget):
 
     inp_data_file_path_: QTextEdit
     btn_browse__data: QPushButton
+    btn_view__data: QPushButton
 
     inp_template_mail_file_path_: QTextEdit
     btn_browse__template: QPushButton
+    btn_view__template: QPushButton
 
     btn_load_data_: QPushButton
 

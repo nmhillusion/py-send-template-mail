@@ -10,7 +10,7 @@ from gui.stage import IMainStage
 from gui.state import StateService
 from service import parse_data_file_to_send_items, read_setting
 from service.main_runner import preview_send_item, send_all_items
-from util import StringUtil
+from util import StringUtil, os_util
 from util.mapping_util import mapping_config_to_func
 
 
@@ -85,7 +85,7 @@ class MainStageController:
             return
 
         logging_emitter.info("send all mails")
-        if (data_file_name_ is None):
+        if StringUtil.is_blank(data_file_name_):
             logging_emitter.error("data file is empty")
             return
 
@@ -159,3 +159,19 @@ class MainStageController:
         except Exception as ex:
             traceback.print_exc()
             logging_emitter.error(str(ex))
+
+    def view_data(self):
+        if StringUtil.is_blank(self.main_window_.data_file_name_):
+            logging_emitter.error("data file is empty")
+            return
+
+        logging_emitter.info(f"viewing data file: {self.main_window_.data_file_name_}")
+        os_util.os_open_file(self.main_window_.data_file_name_)
+
+    def view_template(self):
+        if StringUtil.is_blank(self.main_window_.template_file_name_):
+            logging_emitter.error("template file is empty")
+            return
+
+        logging_emitter.info(f"viewing template file: {self.main_window_.template_file_name_}")
+        os_util.os_open_file(self.main_window_.template_file_name_)

@@ -28,10 +28,14 @@ class MainWindow(QMainWindow, IMainStage):
         self.inp_data_file_path_: QTextEdit = ui_.inpDataFilePath
         self.btn_browse__data: QPushButton = ui_.btnBrowseData
         self.btn_browse__data.pressed.connect(self.open_chose_data_file_dialog)
+        self.btn_view__data = ui_.btnViewData
+        self.btn_view__data.pressed.connect(self.main_stage_controller_.view_data)
 
         self.inp_template_mail_file_path_: QTextEdit = ui_.inpTemplateFilePath
         self.btn_browse__template: QPushButton = ui_.btnBrowseTemplate
         self.btn_browse__template.pressed.connect(self.open_chose_template_file_dialog)
+        self.btn_view__template = ui_.btnViewTemplate
+        self.btn_view__template.pressed.connect(self.main_stage_controller_.view_template)
 
         self.btn_load_data_: QPushButton = ui_.btnLoadData
         self.btn_load_data_.pressed.connect(lambda: self.main_stage_controller_.load_data(self.data_file_name_))

@@ -128,12 +128,25 @@
      <rect>
       <x>864</x>
       <y>40</y>
-      <width>120</width>
+      <width>60</width>
       <height>30</height>
      </rect>
     </property>
     <property name="text">
      <string>Browse</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnViewData">
+    <property name="geometry">
+     <rect>
+      <x>926</x>
+      <y>40</y>
+      <width>60</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>View</string>
     </property>
    </widget>
    <widget class="QListWidget" name="logList">
@@ -205,12 +218,25 @@
      <rect>
       <x>864</x>
       <y>100</y>
-      <width>120</width>
+      <width>60</width>
       <height>30</height>
      </rect>
     </property>
     <property name="text">
      <string>Browse</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnViewTemplate">
+    <property name="geometry">
+     <rect>
+      <x>926</x>
+      <y>100</y>
+      <width>60</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>View</string>
     </property>
    </widget>
    <widget class="QLabel" name="labelExcelFilePath">
