@@ -1,4 +1,4 @@
-__all__ = ["MailTemplateBuilder"]
+__all__ = ["MailTemplateBuilder", "build_template_with_variables"]
 
 from model import MailTemplateModel
 

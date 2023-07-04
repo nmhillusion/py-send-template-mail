@@ -31,13 +31,20 @@ class MailSender:
         cc_emails_ = si_["cc_emails"]
         bcc_emails_ = si_["bcc_emails"]
         attachments_ = si_["attachments"]
+        reminder_date_ = si_["reminder_date"]
 
         if to_emails_ is None:
             raise ValueError("Cannot execute on None to_emails")
 
-        self.__do_send_mail__(to_emails=to_emails_, cc_emails=cc_emails_, bcc_emails=bcc_emails_, attachments=attachments_, only_preview=only_preview)
+        self.__do_send_mail__(
+            to_emails=to_emails_,
+            cc_emails=cc_emails_,
+            bcc_emails=bcc_emails_,
+            attachments=attachments_,
+            reminder_date=reminder_date_,
+            only_preview=only_preview)
 
-    def __do_send_mail__(self, to_emails: str, cc_emails: str, bcc_emails: str, attachments: str | None, only_preview: bool = True):
+    def __do_send_mail__(self, to_emails: str, cc_emails: str, bcc_emails: str, attachments: str | None, reminder_date: str | None, only_preview: bool = True):
         action_name_ = "preview" if only_preview else "send"
 
         logging_emitter.info(f"will {action_name_} mail to... {to_emails}")
@@ -77,6 +84,15 @@ class MailSender:
                     mail.Attachments.Add(att_.strip())
 
         logging_emitter.info(f" started {action_name_}ing: {mail}")
+
+        if 0 < len(str(reminder_date)):
+            # Set follow-up flag for recipient
+            mail.FlagRequest = "Follow up"
+
+            # Set reminder for sender
+            mail.ReminderSet = True
+            mail.ReminderTime = reminder_date
+            mail.FlagDueBy = reminder_date
 
         if only_preview:
             logging_emitter.info("Previewing...")
