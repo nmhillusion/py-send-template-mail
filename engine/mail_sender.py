@@ -85,7 +85,8 @@ class MailSender:
 
         logging_emitter.info(f" started {action_name_}ing: {mail}")
 
-        if 0 < len(str(reminder_date)):
+        if reminder_date is not None and 0 < len(str(reminder_date).strip()):
+            logging_emitter.info(f"[reminder] set to {reminder_date} of {mail.To}")
             # Set follow-up flag for recipient
             mail.FlagRequest = "Follow up"
 
