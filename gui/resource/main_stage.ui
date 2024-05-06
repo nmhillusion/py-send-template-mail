@@ -58,7 +58,7 @@
      <enum>Qt::LeftToRight</enum>
     </property>
     <property name="styleSheet">
-     <string>border: solid 1px green; background-color: #ddd;</string>
+     <string notr="true">border: solid 1px green; background-color: #ddd; color: #222222;</string>
     </property>
     <property name="readOnly">
      <bool>true</bool>
@@ -200,14 +200,14 @@
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border: solid 1px green; background-color: #ddd; color: #222222;</string>
+    </property>
     <property name="readOnly">
      <bool>true</bool>
     </property>
     <property name="cursorWidth">
      <number>0</number>
-    </property>
-    <property name="styleSheet">
-     <string>border: solid 1px green; background-color: #ddd;</string>
     </property>
     <property name="placeholderText">
      <string>path to template mail file...</string>
